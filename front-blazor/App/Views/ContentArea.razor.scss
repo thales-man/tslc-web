@@ -1,0 +1,224 @@
+.art-post-content {
+    text-align: left;
+
+    p {
+        margin: 12px 0px 12px 0px;
+    }
+
+    a {
+        &:link {
+            text-decoration: none;
+            color: #A66C07;
+        }
+
+        &:visited {
+            color: #6D7E7E;
+        }
+
+        &:hover {
+            color: #515D5D;
+            text-decoration: underline;
+        }
+    }
+
+    h1 {
+        color: #515D5D;
+        font-size: 26px;
+    }
+
+    h2 {
+        color: #515D5D;
+        font-size: 22px;
+    }
+
+    h3 {
+        color: #6D7E7E;
+        font-size: 18px;
+    }
+
+    h4 {
+        color: #262C2C;
+        font-size: 16px;
+    }
+
+    h5 {
+        color: #262C2C;
+        font-size: 14px;
+    }
+
+    h6 {
+        color: #373F3F;
+        font-size: 13px;
+    }
+
+    ol {
+        list-style-position: inside;
+
+        li {
+            background: none;
+            padding-left: 0;
+            // overrides overflow for "ul li" and sets the default value
+            overflow: visible;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 1em 0 1em 2em;
+        padding: 0;
+
+        li {
+            background-image: url('../../assets/content_bullet.png');
+            background-repeat: no-repeat;
+            background-position: top left;
+            // makes "ul li" not to align behind the image if they are in the same line
+            overflow-x: visible;
+            overflow-y: hidden;
+            color: #394141;
+            margin: 5px 0px 0px -15px;
+            padding: 0px 0px 0px 11px;
+        }
+    }
+
+    blockquote {
+        margin: 10px;
+        padding: 8px;
+        border-radius: 1px;
+        background-color: #a99f8f73;
+        margin-left: 50px;
+        padding-left: 41px;
+        background-image: url('../../assets/content_quote.png');
+        background-position: left top;
+        background-repeat: no-repeat;
+        // makes block not to align behind the image if they are in the same line
+        overflow: auto;
+        clear: both;
+
+        a {
+            &:link, &:visited, &:hover {
+                color: #151009;
+                font-style: italic;
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+.art-post-header {
+    font-size: 26px;
+    margin: 10px 0px 10px 0px;
+    text-align: left;
+    line-height: 1em;
+
+    a {
+        font-weight: bold;
+        letter-spacing: 2px;
+
+        &:link {
+            text-decoration: none;
+            color: #8E5C06;
+        }
+
+        &:visited {
+            color: #748686;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            color: #515D5D;
+        }
+    }
+}
+
+.art-post-header-icons {
+    text-align: left;
+    font-size: 11px;
+    color: #715833;
+    padding: 1px;
+}
+
+.art-post-email-icon {
+    background: url('../../assets/content_posted.png') no-repeat left 0.5em;
+    padding-top: 8px;
+    margin-top: -8px;
+    padding-left: 22px;
+    min-height: 16px;
+    display: inline-block;
+    line-height: 1em;
+
+    &:after {
+        content: '.';
+        width: 1px;
+        visibility: hidden;
+        display: inline-block;
+    }
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    padding: 5px;
+    background: #dcd7d228;
+}
+
+code[class*="language-"],
+code[class*="language-cs"],
+code[class*="language-xml"],
+code[class*="language-bash"],
+code[class*="language-typescript"],
+code[class*="language-json"] {
+    color: black;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Sans-Serif !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-shadow: none;
+}
+
+.token {
+    .attr-value,
+    .boolean,
+    .keyword {
+        color: #657ad4;
+    }
+
+    .class-name {
+        color: #77a4bd;
+    }
+
+    .return-type {
+        .class-name {
+            color: #77a4bd;
+        }
+    }
+
+    .expression {
+        .language-csharp {
+            color: #929292;
+        }
+    }
+
+    .comment {
+        color: #76a043;
+    }
+
+    .tag,
+    .entity,
+    .string {
+        color: #b4261a;
+    }
+
+    .attr-name {
+        color: #ee5f27;
+    }
+
+    .punctuation,
+    .number,
+    .operator {
+        color: #474944;
+    }
+
+    .function {
+        color: #52350d;
+    }
+}

@@ -1,0 +1,49 @@
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>{{homeMenu.name}}</span>
+    </div>
+    <div class="art-vmenu-body">
+        <ul>
+            <li class="art-vmenu-item" *ngFor="let page of homeMenu.children">
+                <button (click)="closeTree()">
+                    <a class="anchor" [routerLink]="[page.topic, page.year, page.month, page.article]">{{page.name}}</a>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>{{externalMenu.name}}</span>
+    </div>
+    <div class="art-vmenu-body">
+        <ul>
+            <li class="art-vmenu-item" *ngFor="let item of externalMenu.children">
+                <button>
+                    <a class="anchor" [href]="item.topic">{{item.name}}</a>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>{{articles.name}}</span>
+    </div>
+    <div class="art-vmenu-body">
+        <mat-tree [dataSource]="dataSource" [treeControl]="flatTree">
+            <mat-tree-node class="art-vmenu-item" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding [matTreeNodePaddingIndent]="15">
+                <button (click)="updateTree(node)">
+                    <a [routerLink]="[node.topic, node.year, node.month, node.article]" class="anchor">
+                        {{node.name}}
+                    </a>
+                </button>
+            </mat-tree-node>
+            <mat-tree-node class="art-vmenu-item" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="15">
+                <button matTreeNodeToggle (click)="updateTree(node)">
+                    <a class="anchor">{{node.name}} ({{node.count}})</a>
+                </button>
+            </mat-tree-node>
+        </mat-tree>
+    </div>
+</div>

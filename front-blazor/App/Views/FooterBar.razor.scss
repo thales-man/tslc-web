@@ -1,0 +1,28 @@
+.art-footer {
+    position: sticky;
+    margin-top: 1px;
+    margin-bottom: 0px;
+    width: 100%;
+    background: rgba(90, 85, 70, 0.932);
+}
+
+.art-footer-body {
+    min-height: 65px;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+
+    span {
+        color: #C0C8C8;
+        font-size: 11px;
+    }
+}
+
+.made-on-a-mac {
+    height: 50px;
+    width: 139px;
+    position: absolute;
+    left: 50%;
+    bottom: -17px;
+    transform: translate(-50%, -50%);
+}

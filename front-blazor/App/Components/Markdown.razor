@@ -1,0 +1,48 @@
+﻿@using Markdig
+@using Ganss.XSS
+@using System.Text.RegularExpressions
+
+@inject IJSRuntime JSRuntime
+
+@ConvertedContent
+
+@code {
+    private string _content;
+
+    [Inject]
+    public IHtmlSanitizer HtmlSanitizer { get; set; }
+
+    [Parameter]
+    public string Content
+    {
+        get => _content;
+        set
+        {
+            _content = value;
+            ConvertedContent = ConvertStringToMarkupString();
+        }
+    }
+
+    public MarkupString ConvertedContent { get; set; }
+
+    private MarkupString ConvertStringToMarkupString()
+    {
+        if (!string.IsNullOrWhiteSpace(_content))
+        {
+            var html = Markdig.Markdown.ToHtml(_content, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
+            var sanitizedHtml = HtmlSanitizer.Sanitize(html);
+
+            sanitizedHtml = ScopeCSS(sanitizedHtml);
+
+            return new MarkupString(sanitizedHtml);
+        }
+
+        return new MarkupString();
+    }
+
+    public string ScopeCSS(string content) =>
+        Regex.Replace(content, @"(<)([a-z][a-z0-9]*[^<>]*)(>)", "$1$2 gass$3");
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) =>
+        await JSRuntime.InvokeVoidAsync("Markdown.highlight");
+}

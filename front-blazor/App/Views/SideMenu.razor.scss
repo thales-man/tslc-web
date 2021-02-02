@@ -1,0 +1,45 @@
+.art-vmenu {
+    display: block;
+}
+
+.art-vmenu-header {
+    margin: 0;
+    padding: 0 10px 0 10px;
+    white-space: nowrap;
+    min-height: 34px;
+    line-height: 34px;
+    color: #714905;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.art-vmenu-body {
+    display: block;
+}
+
+.mat-tree,
+.mat-tree-item {
+    background-color: #F4F5F5;
+
+    &:hover {
+        background: #B0BBBB;
+    }
+}
+
+.expanded {
+    background-color: #8E5C0633;
+}
+
+.mat-tree-link {
+    color: #4E5A5A;
+
+    .anchor {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #4E5A5A;
+        padding: 2px 2px 2px 0px;
+        background: transparent;
+    }
+}

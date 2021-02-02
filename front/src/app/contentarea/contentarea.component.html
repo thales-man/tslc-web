@@ -1,0 +1,12 @@
+<div>{{postedArticle.publicationDate | date:'EEEE, MMMM d, y'}}</div>
+<h2 class="art-post-header">
+    <a href="{{postedArticle.topic}}/{{postedArticle.year}}/{{postedArticle.month}}/{{postedArticle.article}}">
+        {{postedArticle.title}}
+    </a>
+</h2>
+<div class="art-post-header-icons">
+    <span>{{postedArticle.publicationDate | date:'shortTime'}} | </span>
+    <span>Posted by thales-man | </span>
+    <span class="art-post-email-icon"></span>
+</div>
+<div class="art-post-content" markdown [src]="postedArticle.path"></div>

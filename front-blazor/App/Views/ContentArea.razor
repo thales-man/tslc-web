@@ -1,0 +1,49 @@
+﻿@inherits BaseComponent<IContentAreaComponent>
+@page "/{topic}/{year}/{month}/{article}"
+
+<div>@ViewModel.PostedArticle.PublicationDate.ToLongDateString()</div>
+<h2 class="art-post-header">
+    <a href="@ViewModel.PostedArticle.Topic/@ViewModel.PostedArticle.Year/@ViewModel.PostedArticle.Month/@ViewModel.PostedArticle.Article">
+        @ViewModel.PostedArticle.Title
+    </a>
+</h2>
+<div class="art-post-header-icons">
+    <span>@ViewModel.PostedArticle.PublicationDate.ToShortTimeString()</span>
+    <span>Posted by thales-man | </span>
+    <span class="art-post-email-icon"></span>
+</div>
+<div class="art-post-content">
+    <Markdown Content="@ViewModel.ArticleContent" />
+</div>
+
+@code {
+    @*
+        now i'm not really happy with this code in here, but...
+        it's utterly relevant to the routing of the UI,
+        so i do not think it belongs in the view model
+    *@
+
+    public string Article { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LoadContent();
+    }
+
+    protected override async Task OnRouteChanged(Uri newRoute)
+    {
+        await base.OnRouteChanged(newRoute);
+        await LoadContent();
+    }
+
+    protected async Task LoadContent()
+    {
+        var lastLocation = GetLocation();
+        var sections = lastLocation?.LocalPath.Split("/", StringSplitOptions.RemoveEmptyEntries);
+
+        Article = sections.LastOrDefault() ?? "home";
+
+        await ViewModel.LoadContent(Article);
+    }
+}

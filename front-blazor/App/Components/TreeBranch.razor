@@ -1,0 +1,145 @@
+﻿@typeparam TypeOfBranch
+@using Tiny.Framework.Utility
+
+<div class="@(IsVisible ? "" : "mat-tree-hidden")">
+
+    @foreach (var child in Children ?? Enumerable.Empty<TypeOfBranch>())
+    {
+        var isExpanded = ExpandedItems.Contains(child);
+        var isSelected = child.Equals(SelectedItem);
+        var isEnabled = IsEnabled(child);
+        var hasChildren = HasChildren(child);
+
+        @if (hasChildren)
+        {
+            <div class="mat-tree-item @(isExpanded ? "expanded" : "")" @onclick="@(() => OnToggle(child, !isExpanded))">
+                <div class="mat-tree-node" style=@IndentedStyle()>
+                    <span class="mat-tree-link">
+                        @BranchTemplate(child)
+                    </span>
+                </div>
+            </div>
+
+            if (isExpanded)
+            {
+                <TreeBranch @key="child"
+                            Indentation="Indentation + 1"
+                            Children="ChildSelector(child)"
+                            BranchTemplate="BranchTemplate"
+                            LeafTemplate="LeafTemplate"
+                            ChildSelector="ChildSelector"
+                            ExpandedItems="ExpandedItems"
+                            ExpandedItemsChanged="ExpandedItemsChanged"
+                            SelectedItem="SelectedItem"
+                            SelectedItemChanged="SelectedItemChanged"
+                            IsVisible="isExpanded"
+                            HasChildren="HasChildren"
+                            IsEnabled="IsEnabled" />
+            }
+        }
+        else
+        {
+            <div class="mat-tree-item @(IsSelectable && isSelected ? "expanded" : "")">
+                <div class="mat-tree-node" style=@IndentedStyle()>
+                    <span class="mat-tree-link" @onclick="@(() => OnSelect(child))">
+                        @LeafTemplate(child)
+                    </span>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int Indentation { get; set; } = 0;
+
+    [Parameter]
+    public bool IsSelectable { get; set; } = true;
+
+    [Parameter]
+    public bool IsVisible { get; set; } = true;
+
+    [Parameter]
+    public bool AutoCollapse { get; set; } = true;
+
+    [Parameter]
+    public IEnumerable<TypeOfBranch> Children { get; set; }
+
+    [Parameter]
+    public TypeOfBranch SelectedItem { get; set; }
+
+    [Parameter]
+    public ICollection<TypeOfBranch> ExpandedItems { get; set; } = new List<TypeOfBranch>();
+
+    [Parameter]
+    public Func<TypeOfBranch, bool> HasChildren { get; set; } = node => true;
+
+    [Parameter]
+    public Func<TypeOfBranch, IEnumerable<TypeOfBranch>> ChildSelector { get; set; } = node => null;
+
+    [Parameter]
+    public Func<TypeOfBranch, bool> IsEnabled { get; set; } = node => true;
+
+    [Parameter]
+    public EventCallback<TypeOfBranch> SelectedItemChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<ICollection<TypeOfBranch>> ExpandedItemsChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment<TypeOfBranch> BranchTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<TypeOfBranch> LeafTemplate { get; set; }
+
+    private string IndentedStyle() =>
+        Indentation > 0
+            ? $"padding-left: {1 * Indentation}rem"
+            : "";
+
+    private async Task OnToggle(TypeOfBranch item, bool expand)
+    {
+        var expanded = ExpandedItems.Contains(item);
+
+        // collapse
+        if (expanded && !expand)
+        {
+            ExpandedItems.Remove(item);
+            SelectedItem = default;
+        }
+
+        // expand
+        if (!expanded && expand)
+        {
+            if (AutoCollapse)
+            {
+                var parent = ExpandedItems.FirstOrDefault(x => ChildSelector(x).Contains(item));
+                if(parent != null)
+                {
+                    ChildSelector(parent)
+                        .ForEach(x => ExpandedItems.Remove(x));
+                }
+                else
+                {
+                    ExpandedItems.Clear();
+                }
+            }
+
+            ExpandedItems.Add(item);
+        }
+
+        // notify
+        await ExpandedItemsChanged.InvokeAsync(ExpandedItems);
+        StateHasChanged();
+    }
+
+    private void OnSelect(TypeOfBranch item)
+    {
+        if (IsEnabled(item))
+        {
+            SelectedItem = item;
+            SelectedItemChanged.InvokeAsync(item);
+        }
+    }
+}

@@ -1,0 +1,8 @@
+[
+    "Tiny.Framework",
+    "Tiny.Framework.Web",
+    "Document.API",
+    "Document.API.Shell",
+    "Tiny.Framework.Web.Shell",
+    "Tiny.Framework.Web.Swashbuckle"
+]

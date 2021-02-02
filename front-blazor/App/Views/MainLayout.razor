@@ -1,0 +1,62 @@
+﻿@inherits BaseComponent<IMainLayoutComponent>
+@page "/"
+
+<MediaQuery OnMediaChange="@OnMediaChanged">
+    <div class="art-sheet">
+        <div class="art-sheet-body">
+            <HeaderBar />
+            @if (IsMobile)
+            {
+                <button class="art-sidebar-button" @onclick="@OnExtendMenu">
+                    <i class="material-icons">&#xe5d2;</i>
+                </button>
+            }
+
+            <div class="art-content-layout">
+                <div class="art-sidebar" style="@GetExtendedMenuStyle()">
+                    <SideMenu />
+                </div>
+                <div class="art-post">
+                    <ContentArea />
+                </div>
+            </div>
+            <FooterBar />
+        </div>
+    </div>
+</MediaQuery>
+
+@code {
+
+    public bool IsMobile { get; set; }
+
+    public bool IsMenuOut { get; set; }
+
+    // because we are no longer inheriting from layout component base
+    [Parameter]
+    public RenderFragment Body { get; set; }
+
+    public string GetExtendedMenuStyle() =>
+        IsMobile
+            ? IsMenuOut
+                ? "width: 200px"
+                : "width: 0px"
+            : "";
+
+    public void OnMediaChanged(TypeOfMedia media) =>
+        IsMobile = media == TypeOfMedia.Mobile;
+
+    public void OnExtendMenu()
+    {
+        IsMenuOut = !IsMenuOut;
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnRouteChanged(Uri newRoute)
+    {
+        await base.OnRouteChanged(newRoute);
+        IsMenuOut = false;
+
+        StateHasChanged();
+    }
+}

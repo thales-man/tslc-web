@@ -1,0 +1,54 @@
+﻿@inherits ComponentBase
+@implements IDisposable
+
+@using Tiny.Framework.Utility
+
+@inject IJSRuntime JSRuntime
+
+@ChildContent
+
+@code {
+    private IDisposable ObjectReference;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<TypeOfMedia> OnMediaChange { get; set; }
+
+    [Parameter]
+    public EventCallback<WindowSize> OnSizeChange { get; set; }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+
+        if (ObjectReference != null)
+        {
+            ObjectReference.Dispose();
+        }
+    }
+
+    [JSInvokable("ChangeMedia")]
+    public void RelayChangeMedia(string mediaType)
+    {
+        OnMediaChange.InvokeAsync(FromSet<TypeOfMedia>.Get(mediaType));
+    }
+
+    [JSInvokable("ChangeSize")]
+    public void RelayChangeSize(WindowSize windowSize)
+    {
+        OnSizeChange.InvokeAsync(windowSize);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            ObjectReference = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeVoidAsync("stateManager.init", ObjectReference);
+        }
+    }
+}

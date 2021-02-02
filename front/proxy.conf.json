@@ -1,0 +1,7 @@
+{
+    "/articles": {
+        "target": "http://192.168.8.55:1027",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

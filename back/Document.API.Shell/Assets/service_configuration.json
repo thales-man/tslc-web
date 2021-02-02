@@ -1,0 +1,7 @@
+{
+    "ListeningProtocol": "http",
+    "ListeningAddress": "192.168.8.80",
+    "ListeningPort": 5000,
+    "ContentRootPath": "/users/colin/desktop/site-content",
+    "WebRootFolderName": "root"
+}

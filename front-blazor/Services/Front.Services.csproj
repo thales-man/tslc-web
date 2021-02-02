@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Front.Services</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Registration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Tiny.Framework" Version="2.1.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="5.0.2" />
+  </ItemGroup>
+</Project>

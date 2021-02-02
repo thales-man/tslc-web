@@ -1,0 +1,17 @@
+<div class="art-sheet" (window:resize)="onResize()">
+    <div class="art-sheet-body">
+        <app-headerbar></app-headerbar>
+        <button class="art-sidebar-button" *ngIf="isSmall" (click)="showMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="art-content-layout">
+            <div class="art-sidebar"  [style.width.px]="menuWidth">
+                <app-sidemenu></app-sidemenu>
+            </div>
+            <div class="art-post">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footerbar></app-footerbar>
+    </div>
+</div>

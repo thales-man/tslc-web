@@ -1,0 +1,49 @@
+﻿@inherits BaseComponent<ISideMenuComponent>
+
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>@ViewModel.HomeMenu.Name</span>
+    </div>
+    <div class="art-vmenu-body">
+        <TreeBranch
+            TypeOfBranch="IMenuNode"
+            Children="@ViewModel.HomeMenu.Children"
+            HasChildren="item => (item.Children.Count > 0)"
+            ChildSelector="item => item.Children"
+            IsSelectable="false">
+            <BranchTemplate>@context.Name</BranchTemplate>
+            <LeafTemplate><a class="anchor" href="@context.Topic/@context.Year/@context.Month/@context.Article">@context.Name</a></LeafTemplate>
+        </TreeBranch>
+    </div>
+</div>
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>@ViewModel.ExternalMenu.Name</span>
+    </div>
+    <div class="art-vmenu-body">
+        <TreeBranch
+            TypeOfBranch="IMenuNode"
+            Children="@ViewModel.ExternalMenu.Children"
+            HasChildren="item => (item.Children.Count > 0)"
+            ChildSelector="item => item.Children"
+            IsSelectable="false">
+            <BranchTemplate>@context.Name</BranchTemplate>
+            <LeafTemplate><a class="anchor" href="@context.Topic">@context.Name</a></LeafTemplate>
+        </TreeBranch>
+    </div>
+</div>
+<div class="art-vmenu">
+    <div class="art-vmenu-header">
+        <span>@ViewModel.ArticleMenu.Name</span>
+    </div>
+    <div class="art-vmenu-body">
+        <TreeBranch
+            TypeOfBranch="IMenuNode"
+            Children="@ViewModel.ArticleMenu.Children"
+            HasChildren="item => (item.Children.Count > 0)"
+            ChildSelector="item => item.Children">
+            <BranchTemplate>@context.Name (@context.Count)</BranchTemplate>
+            <LeafTemplate><a class="anchor" href="@context.Topic/@context.Year/@context.Month/@context.Article">@context.Name</a></LeafTemplate>
+        </TreeBranch>
+    </div>
+</div>

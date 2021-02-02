@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+$primary-color: seashell;
+$primary-bg: darkslategrey;
+
+@mixin gradient($rotation, $redStart, $greenStart, $blueStart, $alphaStart, $start, $redEnd, $greenEnd, $blueEnd, $alphaEnd, $finish)  {
+    background: -moz-linear-gradient($rotation, rgba($redStart, $greenStart, $blueStart, $alphaStart) $start, rgba($redEnd, $greenEnd, $blueEnd, $alphaEnd) $finish);
+    background: -webkit-linear-gradient($rotation, rgba($redStart, $greenStart, $blueStart, $alphaStart) $start, rgba($redEnd, $greenEnd, $blueEnd, $alphaEnd) $finish);
+    background: linear-gradient($rotation, rgba($redStart, $greenStart, $blueStart, $alphaStart) $start, rgba($redEnd, $greenEnd, $blueEnd, $alphaEnd) $finish);
+    background-attachment: fixed;
+}
+
+html { 
+    height: 100%; 
+
+    body
+    {
+        font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Sans-Serif;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 13px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        padding: 0;
+        padding-bottom: 15px;
+        margin: 15px;
+        // min-width: 450px;
+        color: #262C2C;
+    
+        background: #596767;
+        @include gradient(0deg, 71, 84, 83, 1, 0%, 109, 125, 125, 1, 100%);
+
+        transition: 0.5s;
+
+        @media screen and (max-width: 768px) {
+            padding-bottom: 0;
+            margin: 0;
+        }
+    
+        h1, h2, h3, h4, h5, h6, p, a, ul, ol, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        table {
+            margin: 36px auto;
+            padding: 0;
+            word-break: initial;
+          }
+          
+          table tr {
+            border-top: 1px solid #dfe2e5;
+            margin: 0;
+            padding: 0;
+          }
+          
+          table tr:nth-child(2n),
+          thead {
+            background-color: #f5f5f5;
+          }
+          
+          table tr th {
+            font-weight: bold;
+            border: 1px solid #dfe2e5;
+            border-bottom: 0;
+            margin: 0;
+            padding: 6px 13px;
+          }
+          
+          table tr td {
+            border: 1px solid #dfe2e5;
+            margin: 0;
+            padding: 6px 13px;
+          }
+          
+          table tr th:first-child,
+          table tr td:first-child {
+            margin-top: 0;
+          }
+          
+          table tr th:last-child,
+          table tr td:last-child {
+            margin-bottom: 0;
+          }
+          
+          table thead th {
+            background-color: #f2f2f2;
+          }          
+    }
+}

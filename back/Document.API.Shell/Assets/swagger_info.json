@@ -1,0 +1,16 @@
+{
+    "MainAssembly": "Document.API.Shell",
+    "Version": "v1",
+    "Title": "document api",
+    "Description": "the striped lawn company's web site article and image api",
+    "TermsOfService": "none",
+    "Contact": {
+        "Name": "article administrator",
+        "Email": "admin@tslc.ltd",
+        "Url": "tslc.ltd"
+    },
+    "License": {
+        "Name": "GPLv3",
+        "Url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+}
